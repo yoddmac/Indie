@@ -18,9 +18,9 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     this->_mapvect = this->_GenMap.getCreatedMap();
     this->_GenMap.AddMapToVector();
 
-    for (uint i = 0; i < this->_mapvect.size(); i++)
+    for (unsigned int i = 0; i < this->_mapvect.size(); i++)
     {
-        for (uint j = 0; j < this->_mapvect[i].size(); j++)
+        for (unsigned int j = 0; j < this->_mapvect[i].size(); j++)
             std::cout << this->_mapvect[i][j] << " ";
         std::cout << std::endl;
     }
@@ -31,7 +31,7 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     //    map
     ::Image image = ::LoadImage("Texture/map/cubicmap.png"); // Load cubicmap image (RAM)
     this->_cubicmap = ::LoadTextureFromImage(image);         // Convert image to texture to display (VRAM)
-    ::Mesh mesh = ::GenMeshCubicmap(image, (Vector3){1.0f, 1.0f, 1.0f});
+    ::Mesh mesh = ::GenMeshCubicmap(image, Vector3{1.0f, 1.0f, 1.0f});
     this->_model = ::LoadModelFromMesh(mesh);
     this->_texture = ::LoadTexture("Texture/map/cubicmap_atlas.png");              // Load map texture
     this->_model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = this->_texture; // Set map diffuse texture
@@ -146,30 +146,30 @@ void Indie::Scenes::GameScene::display(const Graphical::Window &win)
 
     //::DrawModel(this->_model, this->_mapPosition, 1.0f, WHITE); // draw le model (ETIQUETTE)
     if (this->_dropBomb) {
-        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z}, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
-        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z + 1.0f}, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
-        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z - 1.0f}, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
-        ::DrawModelEx(this->_bomb, {this->_playerPose.x + 1.0f, this->_PositionBilly.y, this->_playerPose.z}, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
-        ::DrawModelEx(this->_bomb, {this->_playerPose.x - 1.0f, this->_PositionBilly.y, this->_playerPose.z}, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
+        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
+        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z + 1.0f}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
+        ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z - 1.0f}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
+        ::DrawModelEx(this->_bomb, {this->_playerPose.x + 1.0f, this->_PositionBilly.y, this->_playerPose.z}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
+        ::DrawModelEx(this->_bomb, {this->_playerPose.x - 1.0f, this->_PositionBilly.y, this->_playerPose.z}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
     }
         if (this->_clear == true) {
             ::DrawModelEx(this->_explosion,
                           {this->_playerPose.x, this->_PositionBilly.y - 0.5f, this->_playerPose.z},
-                          (Vector3) {1.0f, 0.0f, 0.0f}, 0.0f, (Vector3) {1.0f, 1.0f, 1.0f}, WHITE);
+                          Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
             ::DrawModelEx(this->_explosion,
                           {this->_playerPose.x, this->_PositionBilly.y - 0.5f, this->_playerPose.z + 1.0f},
-                          (Vector3) {1.0f, 0.0f, 0.0f}, 0.0f, (Vector3) {1.0f, 1.0f, 1.0f}, WHITE);
+                          Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
             ::DrawModelEx(this->_explosion,
                           {this->_playerPose.x, this->_PositionBilly.y - 0.5f, this->_playerPose.z - 1.0f},
-                          (Vector3) {1.0f, 0.0f, 0.0f}, 0.0f, (Vector3) {1.0f, 1.0f, 1.0f}, WHITE);
+                          Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
             ::DrawModelEx(this->_explosion,
                           {this->_playerPose.x + 1.0f, this->_PositionBilly.y - 0.5f, this->_playerPose.z},
-                          (Vector3) {1.0f, 0.0f, 0.0f}, 0.0f, (Vector3) {1.0f, 1.0f, 1.0f}, WHITE);
+                          Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
             ::DrawModelEx(this->_explosion,
                           {this->_playerPose.x - 1.0f, this->_PositionBilly.y - 0.5f, this->_playerPose.z},
-                          (Vector3) {1.0f, 0.0f, 0.0f}, 0.0f, (Vector3) {1.0f, 1.0f, 1.0f}, WHITE);
+                          Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
         }
-    ::DrawModelEx(this->_billy, this->_PositionBilly, (Vector3){1.0f, 0.0f, 0.0f}, 0.0f, (Vector3){1.0f, 1.0f, 1.0f}, WHITE);
+    ::DrawModelEx(this->_billy, this->_PositionBilly, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
     ::DrawGrid(20, 1.0f);
     ::EndMode3D();
 }

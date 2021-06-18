@@ -16,7 +16,7 @@ namespace Indie::Entities {
     class GenerateMap {
     public :
         GenerateMap();
-        void CreateMap(uint, uint = 3);
+        void CreateMap(unsigned int, unsigned int = 3);
         ~GenerateMap();
         void AddMapToVector();
         std::vector<std::vector<int>> getCreatedMap();
@@ -26,8 +26,8 @@ namespace Indie::Entities {
         std::vector<std::unique_ptr<Models::IModel>> _modelVect;
         std::vector<std::unique_ptr<Models::IModel>> _modelFloor;
 
-        uint _width;
-        uint _height;
+        unsigned int _width;
+        unsigned int _height;
     };
 
 }

@@ -12,7 +12,7 @@ Indie::Entities::GenerateMap::GenerateMap()
 
 }
 
-void Indie::Entities::GenerateMap::CreateMap(uint width, uint height)  {
+void Indie::Entities::GenerateMap::CreateMap(unsigned int width, unsigned int height)  {
     this->_width = width;
     srand (time(NULL));
     int value = 0;
@@ -20,9 +20,9 @@ void Indie::Entities::GenerateMap::CreateMap(uint width, uint height)  {
         this->_height = width;
     else
         this->_height = height;
-    for (uint i = 0; i < this->_width; ++i) {
+    for (unsigned int i = 0; i < this->_width; ++i) {
         std::vector<int> v;
-        for (uint j = 0; j < this->_height; ++j) {
+        for (unsigned int j = 0; j < this->_height; ++j) {
             if (j == 0 || i == 0 ||i == this->_width -1 || j == this->_height -1) {
                 value = 2;
             } else if ((i == 1 && j ==1) || (i == 1 && j == 2) || (i== 2 && j == 1)
@@ -51,9 +51,9 @@ std::vector<std::vector<int>> Indie::Entities::GenerateMap::getCreatedMap() {
 }
 
 void Indie::Entities::GenerateMap::AddMapToVector() {
-    for (uint i = 0; i < this->_mapvect.size(); i++)
+    for (unsigned int i = 0; i < this->_mapvect.size(); i++)
     {
-        for (uint j = 0; j < this->_mapvect[i].size(); j++)
+        for (unsigned int j = 0; j < this->_mapvect[i].size(); j++)
         {
             if (this->_mapvect[i][j] == 2) {
                 std::cout << "passse" << std::endl;

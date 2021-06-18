@@ -8,9 +8,9 @@ file(MAKE_DIRECTORY build/assets)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets/
         DESTINATION build/assets)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
+
 FIND_PACKAGE(raylib REQUIRED)
 
-if (UNIX)
 add_executable(${BIN_NAME}
     ${CMAKE_SOURCE_DIR}/src/main.cpp
     ${CMAKE_SOURCE_DIR}/src/Errors/ModelError.cpp
@@ -37,15 +37,6 @@ target_include_directories(${BIN_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/Graphical/
 )
 
-target_compile_options(${BIN_NAME} PRIVATE
-    -W
-    -Wall
-    -Wextra
-    -Werror
-    -std=c++17
-    -g
-)
-
 target_link_libraries(${BIN_NAME} PRIVATE
     raylib
 )
@@ -56,32 +47,4 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(${BIN_NAME} PRIVATE
         -DINDIE_DEBUG=true
     )
-
-    elseif(WIN32)
-    add_executable(${BIN_NAME}
-            ${CMAKE_SOURCE_DIR}/src/main.cpp
-            ${CMAKE_SOURCE_DIR}/src/Errors/ModelError.cpp
-            ${CMAKE_SOURCE_DIR}/src/Errors/IndieError.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/AScene.cpp
-            ${CMAKE_SOURCE_DIR}/src/Models/AModel.cpp
-            ${CMAKE_SOURCE_DIR}/src/Graphical/Window.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScene.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/GameScene.cpp
-            ${CMAKE_SOURCE_DIR}/src/Entities/AEntity.cpp
-            ${CMAKE_SOURCE_DIR}/src/Errors/IndieError.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/OptionScene.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/SceneManager.cpp
-            ${CMAKE_SOURCE_DIR}/src/Scenes/PlaygroundScene.cpp
-            ${CMAKE_SOURCE_DIR}/src/Errors/SceneManagerError.cpp
-            src/Entities/GenerateMap.cpp src/Entities/GenerateMap.hpp)
-
-    target_include_directories(${BIN_NAME} PRIVATE
-            ${CMAKE_SOURCE_DIR}/src/
-            ${CMAKE_SOURCE_DIR}/src/Errors/
-            ${CMAKE_SOURCE_DIR}/src/Scenes/
-            ${CMAKE_SOURCE_DIR}/src/Models/
-            ${CMAKE_SOURCE_DIR}/src/Entities/
-            ${CMAKE_SOURCE_DIR}/src/Graphical/
-            )
-    endif(UNIX)
 endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
