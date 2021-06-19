@@ -35,7 +35,7 @@ namespace Indie::Graphical {
             );
             ~Window();
 
-            void display(double deltaTime);
+            void display();
             void changeSize(const Vector2D &size);
             void setScene(const std::shared_ptr<Scenes::IScene> &scene);
 

@@ -14,22 +14,22 @@
 #include <memory>
 #include <vector>
 
+namespace Indie::Graphical {
+    struct keyboardManage;
+}
+
 namespace Indie::Scenes {
     class AScene : public IScene {
         public:
-            AScene(const std::string &name, Scenes::SceneManager &sceneManager);
+            AScene(const std::string &name, std::shared_ptr<Scenes::SceneManager> sceneManager);
 
-            void update(Event event, double deltaTime) override;
-            void display(const Graphical::Window &window) override;
+            void event(Event event) override;
+            void display(const Graphical::Window &window) override ;
 
             std::string getName() const final;
         protected:
             std::string _name;
-
-            Scenes::SceneManager &_sceneManager;
-
-            double _elapstedTimeTotal = 0;
-            double _elapstedTime = 0;
+            std::shared_ptr<Scenes::SceneManager> _sceneManager;
     };
 }
 

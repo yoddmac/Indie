@@ -1,9 +1,6 @@
-/*
-** EPITECH PROJECT, 2020
-** OptionScene.cpp
-** File description:
-** OptionScene function
-*/
+//
+// Created by ravens on 22/05/2021.
+//
 
 #ifndef INDIE_OPTIONSCENE_HPP
 #define INDIE_OPTIONSCENE_HPP
@@ -14,11 +11,11 @@
 namespace Indie::Scenes {
     class OptionScene : public Scenes::AScene {
     public:
-        OptionScene(Scenes::SceneManager &sceneManager);
+        OptionScene(std::shared_ptr<Scenes::SceneManager> &);
 
         void display(const Graphical::Window &window) override;
-        void update(Indie::Event event, double deltaTime) override;
+        void event(Indie::Event event) override;
     };
 }
 
-#endif
+#endif //INDIE_OPTIONSCENE_HPP

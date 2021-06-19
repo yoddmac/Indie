@@ -1,25 +1,20 @@
-/*
-** EPITECH PROJECT, 2020
-** MenuScene.cpp
-** File description:
-** MenuScene function
-*/
+//
+// Created by ravens on 22/05/2021.
+//
 
 #include "MenuScene.hpp"
 #include "SceneManager.hpp"
-
 #include <raylib.h>
 
-Indie::Scenes::MenuScene::MenuScene(SceneManager &sceneManager) : AScene("MenuScene", sceneManager)
+Indie::Scenes::MenuScene::MenuScene(std::shared_ptr<Scenes::SceneManager> &sceneManager) : AScene("MenuScene", sceneManager)
 {
 
 }
 
-void Indie::Scenes::MenuScene::update(Indie::Event e, double deltaTime)
+void Indie::Scenes::MenuScene::event(Indie::Event e)
 {
-    AScene::update(e, deltaTime);
     if (e.keyEvent == KeyEvent::ENTER) {
-        this->_sceneManager.changeScene("GameScene");
+        this->_sceneManager->changeScene("OptionScene", this->_sceneManager);
     }
 }
 
@@ -27,5 +22,5 @@ void Indie::Scenes::MenuScene::display(const Indie::Graphical::Window &win)
 {
     ::ClearBackground(::GRAY);
     auto textPos = win.getPos(50, 50);
-    ::DrawText("MenuScene", textPos.x, textPos.y, 30, ::BLACK);
+    ::DrawText("MenueScene", textPos.x, textPos.y, 30, ::BLACK);
 }

@@ -9,12 +9,10 @@
 #include <iostream>
 #include <raylib.h>
 
-Indie::Scenes::AScene::AScene(
-    const std::string &name,
-    Scenes::SceneManager &sceneManager
-) : _sceneManager(sceneManager)
+Indie::Scenes::AScene::AScene(const std::string &name, std::shared_ptr<Scenes::SceneManager> sceneManager)
 {
     this->_name = name;
+    this->_sceneManager = sceneManager;
 }
 
 std::string Indie::Scenes::AScene::getName() const
@@ -24,12 +22,12 @@ std::string Indie::Scenes::AScene::getName() const
 
 void Indie::Scenes::AScene::display(const Indie::Graphical::Window &win)
 {
-    (void)win;
+    ::ClearBackground(::GRAY);
+    auto textPos = win.getPos(50, 50);
+    ::DrawText("Default Scene", textPos.x, textPos.y, 30, ::BLACK);
 }
 
-void Indie::Scenes::AScene::update(Indie::Event e, double deltaTime)
+void Indie::Scenes::AScene::event(Indie::Event e)
 {
     (void)e;
-    this->_elapstedTimeTotal += deltaTime;
-    this->_elapstedTime += deltaTime;
 }

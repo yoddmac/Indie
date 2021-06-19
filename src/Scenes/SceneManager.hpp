@@ -18,26 +18,23 @@ namespace Indie::Scenes {
         public:
             SceneManager() = default;
 
-            template<typename T, typename ... Args>
-            void addScene(Args && ... args);
-            void removeScene(const std::string &name);
-
-            void changeScene(const std::string &name);
+            void addScene(const std::string &name);
+            void changeScene(
+                const std::string &name,
+                std::shared_ptr<SceneManager> sceneManager
+            );
 
             std::shared_ptr<IScene> getCurrentScene() const;
+
+            static IScene *createScene(
+                const std::string &name,
+                std::shared_ptr<SceneManager> sceneManager
+            );
         private:
-            std::vector<std::shared_ptr<IScene>> _scenes;
+            std::vector<std::string> _scenes;
 
             std::shared_ptr<IScene> _currScene;
     };
-}
-
-template<typename T, typename ... Args>
-void Indie::Scenes::SceneManager::addScene(Args && ... args)
-{
-    this->_scenes.push_back(
-        std::make_shared<T>(*this, std::forward<Args>(args) ...)
-    );
 }
 
 #endif

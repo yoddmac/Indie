@@ -8,7 +8,7 @@
 #include "OptionScene.hpp"
 #include <raylib.h>
 
-Indie::Scenes::OptionScene::OptionScene(SceneManager &sceneManager) : AScene("OptionScene", sceneManager)
+Indie::Scenes::OptionScene::OptionScene(std::shared_ptr<Scenes::SceneManager> &sceneManager) : AScene("OptionScene", sceneManager)
 {
 
 }
@@ -20,7 +20,9 @@ void Indie::Scenes::OptionScene::display(const Indie::Graphical::Window &win)
     ::DrawText("OptionScene", textPos.x, textPos.y, 30, ::BLACK);
 }
 
-void Indie::Scenes::OptionScene::update(Indie::Event e, double deltaTime)
+void Indie::Scenes::OptionScene::event(Indie::Event e)
 {
-    AScene::update(e, deltaTime);
+    if (e.keyEvent == KeyEvent::ENTER) {
+        std::cout << "UUUUP\n";
+    }
 }

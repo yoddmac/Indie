@@ -1,17 +1,18 @@
-#include "raylib.h"
+/*
+** EPITECH PROJECT, 2020
+** main.cpp
+** File description:
+** main function
+*/
 
 #include "Indie.hpp"
 #include "AScene.hpp"
 #include "Window.hpp"
 #include "SceneManager.hpp"
-#include "GameScene.hpp"
 #include "MenuScene.hpp"
 #include "OptionScene.hpp"
-#include "SceneManager.hpp"
-#include "PlaygroundScene.hpp"
 
 #include <cstring>
-#include <chrono>
 
 static void parseArguments(int ac, char *av[])
 {
@@ -27,25 +28,19 @@ static void parseArguments(int ac, char *av[])
 
 int main(int ac, char *av[])
 {
-    std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::steady_clock::now();
-    std::chrono::time_point<std::chrono::steady_clock> end = std::chrono::steady_clock::now();
     auto sceneManager = std::make_shared<Indie::Scenes::SceneManager>();
-    Indie::Graphical::Window window = Indie::Graphical::Window(1920, 1080);
+    Indie::Graphical::Window window = Indie::Graphical::Window(1920, 1280);
 
     parseArguments(ac, av);
-    sceneManager->addScene<Indie::Scenes::MenuScene>();
-    sceneManager->addScene<Indie::Scenes::OptionScene>();
-    sceneManager->addScene<Indie::Scenes::PlaygroundScene>();
-    sceneManager->addScene<Indie::Scenes::GameScene>();
-    sceneManager->changeScene("MenuScene");
+    sceneManager->addScene("MenuScene");
+    sceneManager->addScene("OptionScene");
+    sceneManager->changeScene("MenuScene", sceneManager);
 
     while (window.isOpened()) {
-        start = std::chrono::steady_clock::now();
-        std::chrono::duration<double, std::ratio<1, 1000>> deltaTime = start - end;
-        auto scene = sceneManager->getCurrentScene();
-        window.setScene(scene);
-        scene->update(window.getEvent(), deltaTime.count() * 1000);
-        window.display(deltaTime.count() * 1000);
-        end = std::chrono::steady_clock::now();
+        window.setScene(sceneManager->getCurrentScene());
+        sceneManager->getCurrentScene()->event(window.getEvent());
+        window.display();
     }
+
+    return 0;
 }

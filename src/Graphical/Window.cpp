@@ -9,7 +9,6 @@
 
 #include <raylib.h>
 #include <iostream>
-#include <sstream>
 
 Indie::Graphical::Window::Window(
         unsigned int width,
@@ -41,9 +40,8 @@ void Indie::Graphical::Window::changeSize(const Vector2D &size)
     ::SetWindowSize(this->_size.x, this->_size.y);
 }
 
-void Indie::Graphical::Window::display(double deltaTime)
+void Indie::Graphical::Window::display()
 {
-    (void)deltaTime;
     ::BeginDrawing();
     ::ClearBackground(RAYWHITE);
     #ifdef INDIE_DEBUG
@@ -56,9 +54,6 @@ void Indie::Graphical::Window::display(double deltaTime)
         std::string SceneName = "Current scene: ";
         SceneName += this->_scene->getName();
         ::DrawText(SceneName.c_str(), recPos.x, recPos.y + 50, 25, ::BLACK);
-        std::ostringstream ss;
-        ss << "Frame time: " << deltaTime << "ms";
-        ::DrawText(ss.str().c_str(), recPos.x, recPos.y + 75, 25, ::BLACK);
     }
     #endif
     if (this->_scene)
@@ -89,11 +84,7 @@ Indie::Event Indie::Graphical::Window::getEvent() const
     int key = ::GetKeyPressed();
     auto it = this->_keymap.find(key);
 
-    if (it == this->_keymap.end()) return { EVENT_NONE, NONE};
+    if (it == this->_keymap.end()) return { EVENT_NONE, NONE };
 
-    if (IsKeyPressed(key))
-        return { EVENT_KEY, it->second};
-    if (IsKeyUp(key))
-        return { EVENT_KEY, it->second };
-    return {EVENT_NONE, NONE};
+    return { EVENT_KEY, it->second };
 }
