@@ -16,8 +16,8 @@ namespace Indie::Scenes {
     public:
         OptionScene(Scenes::SceneManager &sceneManager);
 
-        void display(const Graphical::Window &window) override;
-        void update(Indie::Event event, double deltaTime) override;
+        void update(Event event, double deltaTime, const Indie::Graphical::Window &win) final;
+        void display(const Graphical::Window &window) final;
     };
 }
 

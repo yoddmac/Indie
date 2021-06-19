@@ -19,7 +19,7 @@ namespace Indie::Scenes {
             PlaygroundScene(SceneManager &manager);
             ~PlaygroundScene();
 
-            void update(Event e, double deltaTime) final;
+            void update(Event event, double deltaTime, const Indie::Graphical::Window &win) final;
             void display(const Graphical::Window &window) final;
         private:
             std::unique_ptr<Models::IModel> _model;

@@ -20,7 +20,7 @@ void Indie::Scenes::OptionScene::display(const Indie::Graphical::Window &win)
     ::DrawText("OptionScene", textPos.x, textPos.y, 30, ::BLACK);
 }
 
-void Indie::Scenes::OptionScene::update(Indie::Event e, double deltaTime)
+void Indie::Scenes::OptionScene::update(Event event, double deltaTime, const Indie::Graphical::Window &win)
 {
-    AScene::update(e, deltaTime);
+    AScene::update(event, deltaTime, win);
 }

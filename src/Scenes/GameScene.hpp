@@ -28,7 +28,7 @@ namespace Indie::Scenes {
     public:
         GameScene(SceneManager &sceneManager);
         ~GameScene();
-        void update(Event event, double deltaTime) final;
+        void update(Event event, double deltaTime, const Indie::Graphical::Window &win) final;
         void display(const Graphical::Window & window) final;
 
     protected:

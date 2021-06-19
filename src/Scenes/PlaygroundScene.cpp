@@ -40,9 +40,9 @@ Indie::Scenes::PlaygroundScene::~PlaygroundScene()
 
 }
 
-void Indie::Scenes::PlaygroundScene::update(Event e, double deltaTime)
+void Indie::Scenes::PlaygroundScene::update(Event event, double deltaTime, const Indie::Graphical::Window &win)
 {
-    AScene::update(e, deltaTime);
+    AScene::update(event, deltaTime, win);
 }
 
 void Indie::Scenes::PlaygroundScene::display(const Graphical::Window &window)

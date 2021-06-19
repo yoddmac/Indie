@@ -19,7 +19,7 @@ namespace Indie::Scenes {
         public:
             AScene(const std::string &name, Scenes::SceneManager &sceneManager);
 
-            void update(Event event, double deltaTime) override;
+            void update(Event event, double deltaTime, const Indie::Graphical::Window &win) override;
             void display(const Graphical::Window &window) override;
 
             std::string getName() const final;

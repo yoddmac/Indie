@@ -22,7 +22,6 @@ void Indie::Scenes::SceneManager::changeScene(const std::string &name)
             return;
         }
     }
-
     throw Errors::SceneManagerError("Scene doesn't exist", __func__);
 }
 

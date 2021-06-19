@@ -71,13 +71,10 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     SetMaterialTexture(&this->_billy.materials[0], MAP_DIFFUSE, this->_textureBilly);
     SetCameraMode(this->_camera, CAMERA_CUSTOM); // Set camera mode zoom/dezoom
 }
-void Indie::Scenes::GameScene::update(Event event, double deltaTime)
+void Indie::Scenes::GameScene::update(Event event, double deltaTime, const Indie::Graphical::Window &win)
 {
     (void)event;
-
-
     this->_billiModel->update(deltaTime);
-
     this->_elapstedTime += deltaTime;
     if (this->_elapstedTime >= (60 / (0.08f * 60)))
     {

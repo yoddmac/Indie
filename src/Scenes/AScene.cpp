@@ -27,9 +27,10 @@ void Indie::Scenes::AScene::display(const Indie::Graphical::Window &win)
     (void)win;
 }
 
-void Indie::Scenes::AScene::update(Indie::Event e, double deltaTime)
+void Indie::Scenes::AScene::update(Indie::Event e, double deltaTime, const Indie::Graphical::Window &win)
 {
     (void)e;
+    (void)win;
     this->_elapstedTimeTotal += deltaTime;
     this->_elapstedTime += deltaTime;
 }

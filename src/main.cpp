@@ -44,7 +44,7 @@ int main(int ac, char *av[])
         std::chrono::duration<double, std::ratio<1, 1000>> deltaTime = start - end;
         auto scene = sceneManager->getCurrentScene();
         window.setScene(scene);
-        scene->update(window.getEvent(), deltaTime.count() * 1000);
+        scene->update(window.getEvent(), deltaTime.count() * 1000, window);
         window.display(deltaTime.count() * 1000);
         end = std::chrono::steady_clock::now();
     }

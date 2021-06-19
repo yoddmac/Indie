@@ -25,7 +25,7 @@ namespace Indie::Scenes {
             virtual ~IScene() = default;
 
             virtual void display(const Graphical::Window &window) = 0;
-            virtual void update(Indie::Event event, double deltaTime) = 0;
+            virtual void update(Indie::Event event, double deltaTime, const Indie::Graphical::Window &win) = 0;
 
             virtual std::string getName() const = 0;
     };
