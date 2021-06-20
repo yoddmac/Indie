@@ -53,9 +53,9 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     this->_billiModel->setPlaySpeed(1);
     this->_billiModel->setRotationAngle(-90.0f); // Blender export fix.
 
-    this->_billiModel->setScale({1.0f, 1.0f, 1.0f});
+    this->_billiModel->setScale({0.6f, 0.6f, 0.6f});
     this->_billiModel->setRotationAxis({1.0f, 0.0f, 0.0f});
-    this->_billiModel->setPosition({1.0f, 0.0f, 0.0f});
+    this->_billiModel->setPosition({(2.0f - 4), 0.0f, (1.0f -  4)});
 
     SetCameraMode(this->_camera, CAMERA_CUSTOM); // Set camera mode zoom/dezoom
 }
@@ -64,6 +64,14 @@ void Indie::Scenes::GameScene::update(Event event, double deltaTime, const Indie
     (void)event;
     this->_billiModel->update(deltaTime);
     this->_elapstedTime += deltaTime;
+    this->_canGoUp = true;
+    this->_canGoDown = true;
+    this->_canGoLeft = true;
+    this->_canGoRight = true;
+    this->_GoUp = {this->_billiModel->getPosition().x, this->_billiModel->getPosition().y, (this->_billiModel->getPosition().z - 0.04f)};
+    this->_GoDown = {this->_billiModel->getPosition().x, this->_billiModel->getPosition().y, (this->_billiModel->getPosition().z + 0.04f)};
+    this->_GoLeft=  {(this->_billiModel->getPosition().x - 0.04f), this->_billiModel->getPosition().y, this->_billiModel->getPosition().z};
+    this->_GoRight =  {(this->_billiModel->getPosition().x + 0.04f), this->_billiModel->getPosition().y, this->_billiModel->getPosition().z};
     if (this->_elapstedTime >= (60 / (0.08f * 60)))
     {
         this->_elapstedTime = 0;
@@ -73,28 +81,36 @@ void Indie::Scenes::GameScene::update(Event event, double deltaTime, const Indie
 
     for(const auto& mode: this->_GenMap.getMapVector()) {
         mode->update(deltaTime);
+        if (CheckCollisionBoxes(this->_billiModel->setBoundingBox(this->_GoUp),mode->getBoundingBox()))
+            this->_canGoUp = false;
+        if (CheckCollisionBoxes(this->_billiModel->setBoundingBox(this->_GoDown),mode->getBoundingBox()))
+            this->_canGoDown = false;
+        if (CheckCollisionBoxes(this->_billiModel->setBoundingBox(this->_GoLeft),mode->getBoundingBox()))
+            this->_canGoLeft = false;
+        if (CheckCollisionBoxes(this->_billiModel->setBoundingBox(this->_GoRight),mode->getBoundingBox()))
+            this->_canGoRight = false;
     }
+        // printf("this->_timeBomb = %d\n", this->_timeBomb);
+        if (IsKeyDown(KEY_UP) && this->_canGoUp )
+        {
+            this->_billiModel->setPosition({this->_billiModel->getPosition().x, this->_billiModel->getPosition().y, (this->_billiModel->getPosition().z - 0.04f)});
+            this->_billiModel->setRotationAxis({0.0f, 40.0f, 40.0f});
+            this->_billiModel->setRotationAngle(900.0f); // Blender export fix.
+        }
 
-    // printf("this->_timeBomb = %d\n", this->_timeBomb);
-    if (IsKeyDown(KEY_UP))
-    {
-        this->_billiModel->setPosition({this->_billiModel->getPosition().x, this->_billiModel->getPosition().y, (this->_billiModel->getPosition().z - 0.04f)});
-        this->_billiModel->setRotationAxis({0.0f, 40.0f, 40.0f});
-        this->_billiModel->setRotationAngle(900.0f); // Blender export fix.
-    }
-    if (IsKeyDown(KEY_DOWN))
+    if (IsKeyDown(KEY_DOWN) && this->_canGoDown)
     {
         this->_billiModel->setPosition({this->_billiModel->getPosition().x, this->_billiModel->getPosition().y, (this->_billiModel->getPosition().z + 0.04f)});
         this->_billiModel->setRotationAxis({1.0f, 0.0f, 0.0f});
         this->_billiModel->setRotationAngle(-90.0f); // Blender export fix.
     }
-    if (IsKeyDown(KEY_LEFT))
+    if (IsKeyDown(KEY_LEFT) && this->_canGoLeft)
     {
         this->_billiModel->setPosition({(this->_billiModel->getPosition().x - 0.04f), this->_billiModel->getPosition().y, this->_billiModel->getPosition().z});
         this->_billiModel->setRotationAxis({50.0f, 40.0f, 50.0f});
         this->_billiModel->setRotationAngle(-90.0f); // Blender export fix.
     }
-    if (IsKeyDown(KEY_RIGHT))
+    if (IsKeyDown(KEY_RIGHT)&& this->_canGoRight)
     {
         this->_billiModel->setPosition({(this->_billiModel->getPosition().x + 0.04f), this->_billiModel->getPosition().y, this->_billiModel->getPosition().z});
         this->_billiModel->setRotationAxis({-80.0f, 40.0f, 50.0f});
@@ -131,7 +147,6 @@ void Indie::Scenes::GameScene::display(const Graphical::Window &win)
         ::DrawBoundingBox(mode->getBoundingBox(), BLUE);
     }
 
-    //::DrawModel(this->_model, this->_mapPosition, 1.0f, WHITE); // draw le model (ETIQUETTE)
     if (this->_dropBomb) {
         ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
         ::DrawModelEx(this->_bomb, {this->_playerPose.x, this->_PositionBilly.y, this->_playerPose.z + 1.0f}, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);

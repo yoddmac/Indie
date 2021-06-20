@@ -60,6 +60,16 @@ namespace Indie::Scenes {
 
         Entities::GenerateMap _GenMap;
         std::vector<std::vector<int>> _mapvect;
+
+        //next positions management
+        ::Vector3 _GoUp ;
+        ::Vector3 _GoDown;
+        ::Vector3 _GoLeft;
+        ::Vector3 _GoRight;
+        bool _canGoUp;
+        bool _canGoDown;
+        bool _canGoLeft;
+        bool _canGoRight;
     };
 };
 

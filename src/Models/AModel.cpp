@@ -34,7 +34,7 @@ Indie::Models::AModel::AModel(
 
     this->_rotationAngle = 0.0f;
     this->_scale = { 1.0f, 1.0f, 1.0f };
-    this->_position = { 0.0f, 0.0f, 0.0f };
+    this->_position = { 0.f, 0.0f, 0.0f };
     this->_rotationAxis = { 0.0f, 0.0f, 0.0f };
 }
 
@@ -136,4 +136,13 @@ BoundingBox Indie::Models::AModel::getBoundingBox() {
                    {this->_position.x + this->_scale.x / 2, this->_position.y + this->_scale.y / 2, this->_position.z +
                                                                                                     this->_scale.z /2}};
     return this->_bBox;
+}
+
+BoundingBox Indie::Models::AModel::setBoundingBox(const ::Vector3 &nextPositions) {
+    this->_bBoxNext =  {{nextPositions.x - this->_scale.x / 2, nextPositions.y - this->_scale.y / 2,
+                                                                                                         nextPositions.z -
+                                                                                                         this->_scale.z / 2},
+                        {nextPositions.x + this->_scale.x / 2, nextPositions.y + this->_scale.y / 2, nextPositions.z +
+                                                                                                         this->_scale.z /2}};
+    return this->_bBoxNext;
 }
