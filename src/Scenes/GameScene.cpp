@@ -141,10 +141,10 @@ void Indie::Scenes::GameScene::display(const Graphical::Window &win)
     ::UpdateCamera(&this->_camera);
     ::BeginMode3D(this->_camera); // start camera 3D
     this->_billiModel->display();
-    ::DrawBoundingBox(this->_billiModel->getBoundingBox(), RED);
+//    ::DrawBoundingBox(this->_billiModel->getBoundingBox(), RED);
     for(const auto& mode: this->_GenMap.getMapVector()) {
         mode->display();
-        ::DrawBoundingBox(mode->getBoundingBox(), BLUE);
+//        ::DrawBoundingBox(mode->getBoundingBox(), BLUE);
     }
 
     if (this->_dropBomb) {
