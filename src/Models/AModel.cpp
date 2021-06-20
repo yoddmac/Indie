@@ -128,3 +128,12 @@ void Indie::Models::AModel::AModel::setRotationAxis(const ::Vector3 &rotationAxi
 Vector3 Indie::Models::AModel::AModel::getPosition() {
     return this->_position;
 }
+
+BoundingBox Indie::Models::AModel::getBoundingBox() {
+    this->_bBox = {{this->_position.x - this->_scale.x / 2, this->_position.y - this->_scale.y / 2,
+                                                                                                    this->_position.z -
+                                                                                                    this->_scale.z / 2},
+                   {this->_position.x + this->_scale.x / 2, this->_position.y + this->_scale.y / 2, this->_position.z +
+                                                                                                    this->_scale.z /2}};
+    return this->_bBox;
+}

@@ -28,13 +28,6 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     ::InitAudioDevice();
 
     sound = LoadSound("assets/Music/bombe.mp3");
-    //    map
-    ::Image image = ::LoadImage("Texture/map/cubicmap.png"); // Load cubicmap image (RAM)
-    this->_cubicmap = ::LoadTextureFromImage(image);         // Convert image to texture to display (VRAM)
-    ::Mesh mesh = ::GenMeshCubicmap(image, Vector3{1.0f, 1.0f, 1.0f});
-    this->_model = ::LoadModelFromMesh(mesh);
-    this->_texture = ::LoadTexture("Texture/map/cubicmap_atlas.png");              // Load map texture
-    this->_model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = this->_texture; // Set map diffuse texture
 
     this->_bomb = LoadModel("assets/bomb/Bomb.obj");
     this->_textureBomb = LoadTexture("assets/bomb/TextureDiff2.png");
@@ -44,9 +37,8 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     this->_textureExplosion = LoadTexture("assets/bomb/DramaticTexture.png");
     SetMaterialTexture(&this->_explosion.materials[0], MAP_DIFFUSE, this->_textureExplosion);
 
-    this->_PositionBilly = {1.0f, 0.0f, 1.0f};
 
-    ////    billy
+    ////    billylumberjack
     this->_billiModel = std::make_unique<Models::AModel>(
         "assets/models/lumberjack/lumberjack.iqm",
         "assets/models/lumberjack/texture.png",
@@ -65,10 +57,6 @@ Indie::Scenes::GameScene::GameScene(SceneManager &sceneManager) : Scenes::AScene
     this->_billiModel->setRotationAxis({1.0f, 0.0f, 0.0f});
     this->_billiModel->setPosition({1.0f, 0.0f, 0.0f});
 
-    this->_billy = LoadModel("Texture/perso/Billy/Billy.obj");
-    this->_textureBilly = LoadTexture("Texture/perso/Billy/Billy.png");
-
-    SetMaterialTexture(&this->_billy.materials[0], MAP_DIFFUSE, this->_textureBilly);
     SetCameraMode(this->_camera, CAMERA_CUSTOM); // Set camera mode zoom/dezoom
 }
 void Indie::Scenes::GameScene::update(Event event, double deltaTime, const Indie::Graphical::Window &win)
@@ -137,8 +125,10 @@ void Indie::Scenes::GameScene::display(const Graphical::Window &win)
     ::UpdateCamera(&this->_camera);
     ::BeginMode3D(this->_camera); // start camera 3D
     this->_billiModel->display();
+    ::DrawBoundingBox(this->_billiModel->getBoundingBox(), RED);
     for(const auto& mode: this->_GenMap.getMapVector()) {
         mode->display();
+        ::DrawBoundingBox(mode->getBoundingBox(), BLUE);
     }
 
     //::DrawModel(this->_model, this->_mapPosition, 1.0f, WHITE); // draw le model (ETIQUETTE)
@@ -166,7 +156,6 @@ void Indie::Scenes::GameScene::display(const Graphical::Window &win)
                           {this->_playerPose.x - 1.0f, this->_PositionBilly.y - 0.5f, this->_playerPose.z},
                           Vector3 {1.0f, 0.0f, 0.0f}, 0.0f, Vector3 {1.0f, 1.0f, 1.0f}, WHITE);
         }
-    ::DrawModelEx(this->_billy, this->_PositionBilly, Vector3{1.0f, 0.0f, 0.0f}, 0.0f, Vector3{1.0f, 1.0f, 1.0f}, WHITE);
     ::DrawGrid(20, 1.0f);
     ::EndMode3D();
 }
@@ -184,9 +173,6 @@ Indie::Scenes::GameScene::~GameScene()
         ::UnloadModel(this->_explosion);
         ::StopSound(sound);
     }
-    ::UnloadTexture(this->_cubicmap);
-    ::UnloadModel(this->_billy);
     ::UnloadModel(this->_model);
     ::UnloadTexture(this->_texture);
-    ::UnloadTexture(this->_textureBilly);
 }

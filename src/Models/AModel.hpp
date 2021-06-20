@@ -32,8 +32,8 @@ namespace Indie::Models {
             void setRotationAngle(float rotationAngle) final;
             void setPosition(const ::Vector3 &position) final;
             void setRotationAxis(const ::Vector3 &rotationAxis) final;
-            int setTimeBomb(int time);
             Vector3 getPosition() final;
+            BoundingBox getBoundingBox() final;
         private:
             std::string _modelPath;
             std::string _texturePath;
@@ -57,6 +57,7 @@ namespace Indie::Models {
             ::Vector3 _rotationAxis;
             ::Vector3 _scale;
             float _rotationAngle;
+            ::BoundingBox _bBox;
     };
 }
 

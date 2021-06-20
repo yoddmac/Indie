@@ -28,6 +28,7 @@ namespace Indie::Models {
             virtual void setCurrentAnimation(const std::string &name) = 0;
             virtual void setAnimationsNames(const std::vector<std::string> &) = 0;
             virtual Vector3 getPosition() = 0;
+            virtual BoundingBox getBoundingBox() = 0;
     };
 }
 

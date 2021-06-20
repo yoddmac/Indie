@@ -56,17 +56,16 @@ void Indie::Entities::GenerateMap::AddMapToVector() {
         for (unsigned int j = 0; j < this->_mapvect[i].size(); j++)
         {
             if (this->_mapvect[i][j] == 2) {
-                std::cout << "passse" << std::endl;
                 std::unique_ptr<Models::IModel> _block = std::make_unique<Models::AModel>("assets/models/lowpolytree.obj",
                                                                                           "", "");
-                _block->setPosition({(float) i - 4, 0.0f, (float) j - 5 });
+                _block->setPosition({(float) i - 4, 0.0f, (float) j });
                 this->_modelVect.push_back(std::move(_block));
             }
             else if (this->_mapvect[i][j] == 1) {
-                std::unique_ptr<Models::IModel> _box = std::make_unique<Models::AModel>("assets/models/rock.obj",
-                                                                                        "assets/models/rock.png", "");
-                _box->setPosition({(float) i - 4.2f, 0.0f, (float) j - 4});
-                this->_modelVect.push_back(std::move(_box));
+//                std::unique_ptr<Models::IModel> _box = std::make_unique<Models::AModel>("assets/models/rock.obj",
+//                                                                                        "assets/models/rock.png", "");
+//                _box->setPosition({(float) i - 4, 0.0f, (float) j - 4});
+//                this->_modelVect.push_back(std::move(_box));
             }
         }
         std::cout << std::endl;
